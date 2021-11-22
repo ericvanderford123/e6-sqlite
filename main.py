@@ -1,12 +1,8 @@
-
 import csv
-
-with open('data folder/coffees.csv') as f:
-    csv_reader = csv.reader(f)
-
-
-    next(csv_reader)
-
-    # show the data
-    for line in csv_reader:
+with open('data folder/coffees.csv') as csvfile:
+    dialect = csv.Sniffer().sniff(csvfile.read())
+    csvfile.seek(0)
+    reader= csv.DictReader(csvfile, dialect=dialect)
+    for line in reader:
         print(line)
+
