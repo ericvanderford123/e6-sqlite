@@ -5,9 +5,36 @@ def create_database():
    id INTEGER PRIMARY KEY,
    name  TEXT NOT NULL,
    type TEXT,
-   cost_lb REAL
+   volume INTEGER
    	)
    """)
+    cr.execute("""CREATE TABLE IF NOT EXISTS specials (
+       id INTEGER PRIMARY KEY,
+       date TEXT NOT NULL,
+       store_name TEXT,
+       coffee_name TEXT,
+       cost_lb REAL
+       	)
+       """)
+    cr.execute("""CREATE TABLE IF NOT EXISTS ratings (
+           id INTEGER PRIMARY KEY,
+           date TEXT NOT NULL,
+           store_name TEXT,
+           rating INTEGER
+           	)
+           """)
+    cr.execute("""CREATE TABLE IF NOT EXISTS coffees (
+              id INTEGER PRIMARY KEY,
+              name TEXT NOT NULL,
+              type TEXT,
+              cost_lb REAL
+              	)
+              """)
+    cr.execute("CREATE UNIQUE INDEX stores_name_index ON stores(name)")
+    cr.execute("CREATE INDEX stores_name_specials ON specials(store_name)")
+    cr.execute("CREATE INDEX stores_name_ratings ON ratings(store_name)")
+    cr.execute("CREATE UNIQUE INDEX coffeename_coffees ON coffees(name)")
+
 
 
 
@@ -23,4 +50,4 @@ def drop_tables():
 if __name__ == '__main__':
     create_database()
 
-connection_handle = sqlite3.connect('data folder/cafe.sqlite3')
+
